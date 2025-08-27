@@ -1,0 +1,342 @@
+.upgradePage {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  background-color: #212121;
+  color: #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Roboto', sans-serif;
+  overflow: hidden;
+  z-index: 50;
+  animation: popUpFullScreen 0.3s ease forwards;
+}
+
+@keyframes popUpFullScreen {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.03);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Header */
+.upgradeHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 2rem 2rem 1rem 2rem;
+  flex-shrink: 0;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.headerText {
+  flex: 1;
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.headerText h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #fff;
+}
+
+.headerText p {
+  font-size: 1rem;
+  color: #b4b4b4;
+  line-height: 1.6;
+  margin: 0 auto;
+}
+
+/* Close button */
+.closeBtn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease;
+  z-index: 100;
+  padding: 0.2rem 0.5rem;
+}
+
+.closeBtn:hover {
+  background-color: #ff4d4f;
+  transform: scale(1.1);
+}
+
+/* Plans container */
+.plansContainer {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 1.5rem 2rem;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.3) transparent;
+}
+
+.plansContainer::-webkit-scrollbar {
+  width: 8px;
+}
+.plansContainer::-webkit-scrollbar-track {
+  background: transparent;
+}
+.plansContainer::-webkit-scrollbar-thumb {
+  background-color: rgba(255,255,255,0.3);
+  border-radius: 4px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+/* Plan cards */
+.planCard {
+  background-color: #2a2a2a;
+  border-radius: 1rem;
+  padding: 2rem 1.5rem;
+  width: 260px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.planCard:hover {
+  transform: translateY(-6px) scale(1.02);
+  background-color: #333;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.55);
+}
+
+.recommended {
+  border: 2px solid #339cff;
+}
+
+.badge {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background-color: #339cff;
+  color: #fff;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: bold;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+}
+
+/* Current Plan */
+.currentPlanCard {
+  border: 2px solid #4caf50;
+  background-color: #2e3b2f;
+  pointer-events: none; /* disables clicks on card itself */
+}
+
+.currentBadge {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  background-color: #4caf50;
+  color: #fff;
+  padding: 0.25rem 0.6rem;
+  border-radius: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: bold;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+}
+
+.planName {
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+}
+
+.planPrice {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1.2rem;
+}
+
+.planFeatures {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 1.5rem;
+  width: 100%;
+}
+
+.planFeatures li {
+  margin: 0.6rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+  font-size: 0.97rem;
+}
+
+.planFeatures li::before {
+  content: "✔";
+  position: absolute;
+  left: 0;
+  color: #4caf50;
+  font-weight: bold;
+}
+
+.planButton {
+  background-color: #339cff;
+  color: #fff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.planButton:hover {
+  background-color: #1e7ed0;
+  transform: scale(1.05);
+}
+
+.planButton.pending {
+  background-color: #ffa500;
+  cursor: not-allowed;
+}
+
+.planButton.current {
+  background-color: #4caf50;
+  cursor: not-allowed;
+}
+
+.pendingText {
+  font-size: 0.85rem;
+  color: #ccc;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .plansContainer { flex-direction: column; align-items: center; padding: 1rem; }
+  .planCard { width: 85%; padding: 1.8rem 1rem; }
+  .upgradeHeader { flex-direction: column; align-items: center; }
+  .headerText { text-align: center; margin-bottom: 1rem; }
+  .closeBtn { align-self: center; margin-top: 0.5rem; }
+}
+
+/* === Confirmation Modal Styling (Redesigned) === */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 17, 26, 0.7);
+  backdrop-filter: blur(6px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+.modalBox {
+  background: #1f2233;
+  color: #fff;
+  padding: 16px 20px;       /* 🔹 tighter padding */
+  border-radius: 12px;
+  max-width: 300px;         /* 🔹 shorter width */
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.55);
+  animation: popIn 0.25s ease-in-out;
+}
+
+.modalBox h3 {
+  font-size: 1.3rem;        /* 🔹 clean, bigger font */
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.modalBox p {
+  font-size: 1rem;
+  margin-bottom: 14px;      /* 🔹 less spacing */
+  color: #cfcfcf;
+}
+
+.modalActions {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.modalBtn {
+  flex: none;                     /* no stretching */
+  min-width: 100px;               /* fixed shorter width */
+  padding: 8px 14px;              /* compact */
+  border-radius: 30px;            /* pill-shaped */
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.25s ease-in-out;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+  display: flex;
+  justify-content: center;
+}
+
+.modalBtn.cancel {
+  background: linear-gradient(135deg, #ff9f43, #ff6b35);
+  color: #fff;
+  
+}
+
+.modalBtn.cancel:hover {
+  background: linear-gradient(135deg, #ffb75c, #ff5e2f);
+  transform: translateY(-2px);
+}
+
+.modalBtn.confirm {
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  color: #fff;
+}
+
+.modalBtn.confirm:hover {
+  background: linear-gradient(135deg, #29d9ff, #005ce6);
+  transform: translateY(-2px);
+}
+
+/* === Animations === */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes popIn {
+  from {
+    transform: scale(0.92);
+    opacity: 0.85;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

@@ -1,0 +1,380 @@
+/* Base container – mirrors .upgradePage */
+.adminDashboard {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  background-color: #212121;
+  color: #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Roboto', sans-serif;
+  overflow: hidden;
+  z-index: 50;
+  transform: scale(0.9);
+  opacity: 0;
+  animation: popUpFullScreen 0.4s ease forwards;
+}
+
+@keyframes popUpFullScreen {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.03);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Header */
+.adminHeader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 2rem 1rem;
+  flex-shrink: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.headerText {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.headerText h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #fff;
+}
+
+.headerText p {
+  font-size: 1rem;
+  color: #b4b4b4;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Close button */
+.closeBtn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease;
+  z-index: 100;
+  padding: 0.2rem 0.5rem;
+}
+.closeBtn:hover {
+  background-color: #ff4d4f;
+  transform: scale(1.1);
+}
+
+/* Main content area */
+.adminContent {
+  flex: 1;
+  padding: 1rem 2rem 2rem;
+  overflow-y: auto;
+  scrollbar-width:none;
+  scrollbar-color: rgba(255,255,255,0.3) transparent;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+}
+.adminContent::-webkit-scrollbar { width: 8px; }
+.adminContent::-webkit-scrollbar-track { background: transparent; }
+.adminContent::-webkit-scrollbar-thumb {
+  background-color: rgba(255,255,255,0.3);
+  border-radius: 4px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+/* Section container */
+.userSection {
+  width: 100%;
+  max-width: 1000px;
+  background-color: #2a2a2a;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  padding: 0.75rem 0 0.25rem;
+}
+
+/* Section header with count */
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.25rem 0.75rem 1.25rem;
+  border-bottom: 1px solid #3a3a3a;
+}
+.sectionHeader h2 {
+  font-size: 1.25rem;
+  margin: 0;
+  color: #fff;
+}
+.countBadge {
+  background-color: #339cff;
+  color: #fff;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+.countBadge.neutral {
+  background-color: #6b6b6b;
+}
+.countBadge.request {
+  background-color: #ffaa33;
+  color: #fff;
+}
+
+/* --- USER LIST IMPROVED STYLING --- */
+.userList {
+  list-style: none;
+  margin: 0;
+  padding: 0.5rem 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem 0.75rem;
+}
+
+.userRow {
+  display: grid;
+  grid-template-columns: 40px 1fr auto;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 0.5rem 0.75rem;
+  background-color: #2f2f2f;
+  border: 1px solid #3a3a3a;
+  border-radius: 0.65rem;
+  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+.userRow:hover {
+  background-color: #353535;
+  transform: scale(1.01);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+
+.avatar {
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+  background: #3a3a3a;
+  border: 1px solid #4a4a4a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  font-size: 0.85rem;
+}
+
+.userMeta {
+  display: flex;
+  flex-direction: column;
+}
+.userMeta strong {
+  font-size: 0.9rem;
+  color: #fff;
+  line-height: 1.2;
+}
+.userMeta small {
+  color: #b4b4b4;
+  font-size: 0.75rem;
+}
+
+.userTag {
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  border: 1px solid transparent;
+  justify-self: end;
+}
+.userTag.premium {
+  color: #339cff;
+  background: rgba(51, 156, 255, 0.12);
+  border-color: rgba(51, 156, 255, 0.25);
+}
+.userTag.free {
+  color: #cfcfcf;
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+.userTag.request {
+  color: #ffaa33;
+  background: rgba(255, 170, 51, 0.12);
+  border-color: rgba(255, 170, 51, 0.25);
+}
+
+@media (max-width: 768px) {
+  .adminContent { padding: 0.75rem 1rem 1rem; }
+  .userSection { border-radius: 0.9rem; }
+  .userList { grid-template-columns: 1fr; }
+  .userRow { grid-template-columns: 36px 1fr auto; padding: 0.5rem 0.75rem; }
+  .avatar { height: 30px; width: 30px; font-size: 0.8rem; }
+  .userMeta strong { font-size: 0.85rem; }
+  .userMeta small { font-size: 0.7rem; }
+  .userTag { font-size: 0.65rem; padding: 0.18rem 0.45rem; }
+  .headerText h1 { font-size: 1.9rem; }
+}
+
+/* Action buttons for requests */
+.actionButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  justify-self: end;
+}
+
+.actionButtons div {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+.actionButtons button {
+  padding: 0.3rem 0.7rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.approveBtn { background: #339cff; color: #fff; }
+.approveBtn:hover { background: #1a7ed6; transform: scale(1.05); }
+
+.rejectBtn { background: #ff4d4f; color: #fff; }
+.rejectBtn:hover { background: #d9363e; transform: scale(1.05); }
+
+/* Modal overlay */
+.userModalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.65);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 200;
+  animation: fadeIn 0.3s ease forwards;
+}
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* Modal Card */
+.userModalCard {
+  background-color: #2a2a2a;
+  padding: 1rem;
+  border-radius: 0.8rem;
+  width: 280px;
+  max-width: 90%;
+  text-align: left;
+  position: relative;
+  animation: popUp 0.25s ease forwards;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+@keyframes popUp {
+  from { transform: scale(0.85) translateY(-20px); opacity: 0; }
+  to { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+.modalAvatar {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: #3a3a3a;
+  border: 1px solid #4a4a4a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  margin: 0 auto 0.5rem;
+  font-size: 0.95rem;
+}
+
+.userModalCard h3 {
+  margin: 0.2rem 0 0.4rem 0;
+  color: #fff;
+  text-align: center;
+  font-size: 1.05rem;
+}
+
+.userModalCard p {
+  font-size: 0.82rem;
+  color: #b4b4b4;
+  margin: 0.15rem 0;
+  line-height: 1.2;
+  text-align: left;
+}
+
+.userModalCard .closeBtn {
+  position: absolute;
+  top: 0.3rem;
+  right: 0.3rem;
+  font-size: 1.3rem;
+  background: transparent;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  padding: 0.1rem 0.25rem;
+}
+.userModalCard .closeBtn:hover { color: #ff4d4f; }
+
+.modalActions {
+  display: flex;
+  gap: 0.4rem;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.modalActions button {
+  flex: 1;
+  padding: 0.35rem 0.5rem;
+  font-size: 0.75rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s ease, transform 0.2s ease;
+  color: #fff;
+}
+
+.modalActions button:nth-child(1) { background-color: #ffaa33; } /* Activate */
+.modalActions button:nth-child(1):hover { background-color: #ff922b; }
+.modalActions button:nth-child(2) { background-color: #339cff; } /* Promote */
+.modalActions button:nth-child(2):hover { background-color: #1a7ed6; }
+.modalActions button:nth-child(n+3) { background-color: #4a4a4a; } /* Plan buttons */
+.modalActions button:nth-child(n+3):disabled { background-color: #6b6b6b; cursor: not-allowed; }
+.modalActions button:nth-child(n+3):hover:not(:disabled) { background-color: #5c5c5c; transform: scale(1.03); }
+
+@media (max-width: 480px) {
+  .userModalCard { padding: 1rem; width: 90%; }
+  .modalActions { flex-direction: column; }
+  .modalActions button { width: 100%; }
+}

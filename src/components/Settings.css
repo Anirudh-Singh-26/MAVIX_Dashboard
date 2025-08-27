@@ -1,0 +1,279 @@
+/* Main page */
+.settingsPage {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: #212121;
+  color: #f0f0f0;
+  font-family: "Roboto", sans-serif;
+  overflow: hidden;
+  z-index: 50;
+  transform: scale(0.9);
+  opacity: 0;
+  animation: popUpFullScreen 0.4s ease forwards;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes popUpFullScreen {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.03);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Header */
+.settingsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: #1e1e1e;
+  flex-shrink: 0;
+}
+
+.headerText h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+.headerText p {
+  margin: 0.2rem 0 0 0;
+  font-size: 0.95rem;
+  color: #ccc;
+}
+
+.closeBtn {
+  font-size: 1.8rem;
+  background: transparent;
+  border: none;
+  color: #f0f0f0;
+  cursor: pointer;
+  padding: 0.3rem 0.6rem;
+  border-radius: 0.3rem;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.closeBtn:hover {
+  background-color: #ff4d4d;
+  color: #fff;
+}
+
+/* Container for sidebar + main content */
+.settingsContainer {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* Sidebar */
+.settingsSidebar {
+  width: 250px;
+  background-color: #1e1e1e;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.5rem 1rem;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+.sidebarItem {
+  padding: 0.7rem 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  font-size: 0.95rem;
+  color: #ccc;
+}
+
+.sidebarItem:hover {
+  background-color: #2a2a2a;
+  color: #fff;
+}
+.sidebarItem.active {
+  background-color: #339cff;
+  color: #fff;
+  font-weight: bold;
+}
+
+/* Main content */
+.settingsMain {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+}
+.settingsMain h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+/* Form elements */
+.fieldLabelWrap,
+.securityFieldWrap {
+  margin-bottom: 0.6rem;
+}
+.labelTitle {
+  font-size: 0.95rem;
+  color: #cfcfcf;
+  margin-bottom: 0.3rem;
+  display: block;
+}
+
+/* Display row */
+.displayRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #2a2a2a;
+  padding: 0.6rem 0.9rem;
+  border-radius: 0.5rem;
+  gap: 1rem;
+  height: 30px;
+}
+.displayValue {
+  color: #f0f0f0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: calc(100% - 120px);
+}
+
+/* Inline edit / password toggle row */
+.editRowInline {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.fieldInput {
+  padding: 0.6rem 0.8rem;
+  flex: 1;
+  min-width: 250px;
+  max-width: 100%;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #444;
+  background: #232323;
+  color: #f0f0f0;
+}
+
+/* Buttons */
+.editBtn,
+.saveBtn,
+.cancelBtn,
+.toggleViewBtn {
+  padding: 0.45rem 0.75rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.editBtn {
+  background: linear-gradient(135deg, #2f86f6, #4fa7ff);
+  color: white;
+}
+.editBtn:hover {
+  filter: brightness(0.95);
+}
+.saveBtn {
+  background: linear-gradient(135deg, #2bb673, #3fcf90);
+  color: white;
+}
+.saveBtn:hover {
+  filter: brightness(0.95);
+}
+.cancelBtn {
+  background: linear-gradient(135deg, #ff6b6b, #ff4d4d);
+  color: white;
+}
+.cancelBtn:hover {
+  filter: brightness(0.95);
+}
+/* Toggle view button for passwords */
+.toggleViewBtn {
+  background: #4a90e2;
+  color: white;
+  flex-shrink: 0; /* prevents shrinking */
+  font-size: 0.85rem;
+  padding: 0.45rem; /* uniform padding */
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  width: 60px; /* fixed width to accommodate text */
+  display: flex; /* flex to center text */
+  justify-content: center; /* horizontal centering */
+  align-items: center; /* vertical centering */
+  text-align: center; /* fallback for text alignment */
+}
+.toggleViewBtn:hover {
+  filter: brightness(0.95);
+}
+
+/* Profile section */
+.profileSection {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+  overflow-x: hidden;
+}
+.profileLeft {
+  flex: 0 0 60%;
+}
+.profileRight {
+  flex: 0 0 40%;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+}
+.profileCircle {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background-color: #4a90e2;
+  color: white;
+  font-size: 48px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.profileCircleContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.profileName {
+  border-bottom: 1px solid rgb(204, 193, 193); /* thickness and color of the underline */
+  padding-bottom: 2px;  margin-top: 14px;
+  font-size: 1.5rem;
+  color: #f0f0f0;
+  text-align: center;
+}
+
+/* Security section password fields */
+.securityFieldWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  max-width: 400px;
+}
+.securityFieldWrap .fieldInput {
+  width: 100%;
+  min-width: 250px;
+  max-width: 100%;
+  font-size: 1rem;
+  padding: 0.6rem 0.8rem;
+}

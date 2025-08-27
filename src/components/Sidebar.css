@@ -1,0 +1,298 @@
+.sidebar {
+  background-color: #171717;
+  color: #b4b4b4;
+  height: 100vh;
+  width: 18.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative; /* safe for positioning children */
+  transition: width 0.2s ease, background-color 0.5s ease; /* added background-color */
+}
+
+button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: transparent;
+  border: solid 0 rgba(255, 255, 255, 0.5);
+}
+
+.logo {
+  margin-top: 0.8rem;
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.newlogo {
+  height: 30px;
+  width: 30px;
+  object-fit: cover;
+}
+
+button span {
+  font-size: 20px;
+}
+
+button:hover {
+  background-color: rgba(180, 180, 180, 0.05);
+  cursor: pointer;
+}
+
+.history {
+  margin: 10px;
+  padding: 10px;
+  overflow-y: auto; /* scroll only inside history */
+  overflow-x: hidden;
+  margin-left: 0;
+  margin-right: 0;
+
+  /* fill space between top button and bottom sign */
+  height: calc(
+    100vh - 100px
+  ); /* adjust 100px to top button + bottom sign height */
+}
+
+/* Slim scrollbar */
+.history::-webkit-scrollbar {
+  width: 4px;
+}
+.history::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.1); /* darker default */
+  border-radius: 2px;
+  transition: background-color 0.3s ease; /* smooth hover effect */
+}
+.sidebar:hover .history::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.2); /* brightens on hover */
+}
+.history::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 2px;
+}
+
+/* Firefox */
+.history {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.1) rgba(0, 0, 0, 0.1);
+}
+.sidebar:hover .history {
+  scrollbar-color: rgba(255, 255, 255, 0.2) rgba(0, 0, 0, 0.1);
+}
+
+.history li {
+  list-style: none;
+  cursor: pointer;
+  padding: 2px 5px;
+  margin-bottom: 0.3rem;
+  font-size: 14px;
+  border: solid 5px transparent;
+  position: relative;
+}
+
+.history li:hover {
+  background-color: rgba(180, 180, 180, 0.05);
+  border-radius: 10px;
+}
+
+.sign {
+  padding: 10px;
+  margin: 10px;
+  font-size: 14px;
+  text-align: center;
+  border-top: solid 0.25px rgba(255, 255, 255, 0.2);
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 4px;
+}
+
+.sign p {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.fa-trash {
+  opacity: 0;
+  position: absolute;
+  right: 0;
+  padding-top: 0.14rem;
+  padding-right: 0.1rem;
+}
+
+.history li:hover .fa-trash {
+  opacity: 1;
+  color: white;
+}
+
+.fa-trash:hover {
+  color: #f87171 !important;
+}
+
+.highlighted {
+  background-color: rgba(180, 180, 180, 0.05);
+  border-radius: 10px;
+}
+
+.hidden {
+  display: none;
+}
+
+.threadTitle {
+  display: inline-block;
+  max-width: calc(100% - 20px); /* leave space for trash icon */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+}
+
+/* Collapsed sidebar */
+.sidebar.collapsed {
+  width: 5rem !important;
+  overflow: hidden;
+  background-color: #212121 !important;
+}
+
+/* Wrapper for top buttons */
+/* Wrapper for top buttons */
+.topButtonWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* logo left, button right */
+  margin: 10px;
+  padding-left: 8px;
+  height: 40px;
+  position: relative;
+}
+
+/* Collapse button */
+.topButtonWrapper .collapseBtn {
+  width: 28px;
+  height: 28px;
+  background-color: #323232;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 5;
+}
+
+/* When sidebar is collapsed, move collapse button over logo */
+.sidebar.collapsed .topButtonWrapper .collapseBtn {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-75%);
+}
+
+.topButtonWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px;
+  padding-left: 8px;
+  height: 40px;
+  position: relative;
+}
+
+/* New Chat button styled like history li */
+.newChatWrapper {
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-left: 0.1rem;
+}
+
+.newChatBtn {
+  display: flex;
+  align-items: center;
+  padding: 2px 5px; /* same as history li */
+  margin: 0;
+  border-radius: 10px;
+  background-color: transparent;
+  border: solid 2px transparent;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 0.2s ease;
+  line-height: 1; /* remove extra height from text */
+  width: 100%; /* ✅ take full width of parent */
+  justify-content: flex-start; /* ✅ keep icon + text aligned left */
+  box-sizing: border-box; /* ✅ include padding in width */
+}
+
+.newChatBtn span,
+.newChatBtn p {
+  margin: 0; /* remove margin from <p> inside span */
+  padding: 0; /* remove padding */
+}
+.newChatBtn p {
+  margin-left: 0.8rem;
+  font-size: 0.9rem;
+}
+
+.threadTitle,
+.newChatBtn span,
+.newChatBtn p {
+  white-space: nowrap; /* never wrap to next line */
+  overflow: hidden; /* hide anything overflowing */
+  text-overflow: ellipsis; /* show ... if too long */
+  display: inline-block; /* enforce single line layout */
+  max-width: 100%; /* stay within container */
+}
+
+/* Hide history scrollbar when sidebar is collapsed */
+.sidebar.collapsed .history {
+  overflow: hidden; /* prevent scrolling */
+  scrollbar-width: none; /* Firefox */
+}
+
+.sidebar.collapsed .history::-webkit-scrollbar {
+  display: none; /* Chrome, Edge, Safari */
+}
+
+/* Search button styled same as new chat */
+.searchWrapper {
+  margin-left: 10px;
+  margin-right: 10px;
+  height: 2rem;
+  padding-left: 0.1rem;
+}
+
+.searchBtn {
+  display: flex;
+  align-items: center;
+  padding: 2px 5px; /* same as history li */
+  margin: 0;
+  border-radius: 10px;
+  background-color: transparent;
+  border: solid 2px transparent;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 0.2s ease;
+  line-height: 1;
+  width: 100%; /* ✅ take full width of parent */
+  justify-content: flex-start; /* ✅ keep icon + text aligned left */
+  box-sizing: border-box; /* ✅ include padding in width */
+}
+
+.searchBtn span,
+.searchBtn p {
+  margin: 0;
+  padding: 0;
+}
+.searchBtn p {
+  margin-left: 0.8rem;
+  font-size: 0.9rem;
+}
+
+.searchBtn:hover {
+  background-color: rgba(180, 180, 180, 0.05);
+}
