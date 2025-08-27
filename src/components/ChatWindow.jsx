@@ -271,7 +271,7 @@ function ChatWindow() {
       </div>
 
       {/* ✅ Toast Container */}
-      <ToastContainer
+      {/* <ToastContainer
         position="top-center"
         autoClose={1500}
         hideProgressBar={false}
@@ -280,7 +280,7 @@ function ChatWindow() {
         draggable
         pauseOnHover
         toastClassName="dashboard-toast"
-      />
+      /> */}
     </div>
   );
 }

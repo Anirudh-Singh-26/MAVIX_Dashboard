@@ -1,5 +1,5 @@
-import './App.css';
-import './Responsive.css';
+import "./App.css";
+import "./Responsive.css";
 import { Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -12,6 +12,9 @@ import Settings from "./components/Settings.jsx";
 import AdminDashboard from "./components/AdminDashboard.jsx";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Loader from "./components/Loader.jsx";
+
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import { v1 as uuidv1 } from "uuid";
 
@@ -29,10 +32,13 @@ function App() {
   useEffect(() => {
     const fetchRole = async () => {
       try {
-        const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/auth/me/role`, {
-          withCredentials: true, // ✅ send cookies
-        });
-        setRole(res.data.role); 
+        const res = await axios.get(
+          `${import.meta.env.VITE_BACKEND_URL}/api/auth/me/role`,
+          {
+            withCredentials: true, // ✅ send cookies
+          }
+        );
+        setRole(res.data.role);
         console.log("Role fetched:", res.data.role);
       } catch (err) {
         console.error("Failed to fetch role:", err);
@@ -71,21 +77,49 @@ function App() {
         <Routes>
           <Route
             path="/"
-            element={<ProtectedRoute><ChatWindow /></ProtectedRoute>}
+            element={
+              <ProtectedRoute>
+                <ChatWindow />
+              </ProtectedRoute>
+            }
           />
           <Route
             path="/upgrade"
-            element={<ProtectedRoute><UpgradePlan /></ProtectedRoute>}
+            element={
+              <ProtectedRoute>
+                <UpgradePlan />
+              </ProtectedRoute>
+            }
           />
           <Route
             path="/settings"
-            element={<ProtectedRoute><Settings /></ProtectedRoute>}
+            element={
+              <ProtectedRoute>
+                <Settings />
+              </ProtectedRoute>
+            }
           />
           <Route
             path="/admin"
-            element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>}
+            element={
+              <ProtectedRoute>
+                <AdminDashboard />
+              </ProtectedRoute>
+            }
           />
         </Routes>
+
+        {/* ✅ ToastContainer placed globally */}
+        <ToastContainer
+          position="top-center"
+          autoClose={1500}
+          hideProgressBar={false}
+          newestOnTop={true}
+          closeOnClick
+          draggable
+          pauseOnHover
+          toastClassName="dashboard-toast"
+        />
       </div>
     </MyContext.Provider>
   );
