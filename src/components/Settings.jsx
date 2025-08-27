@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Loader from "./Loader";
+import { toast } from "react-toastify";
+
 
 function Settings() {
   const navigate = useNavigate();
@@ -73,10 +75,10 @@ function Settings() {
   // ---------------- CHANGE PASSWORD ----------------
   const handleChangePassword = async () => {
     if (!oldPassword || !newPassword || !confirmPassword) {
-      return alert("Please fill all fields");
+      return toast.error("Please fill all fields");
     }
     if (newPassword !== confirmPassword) {
-      return alert("New password and confirm password do not match");
+      return toast.error("New password and confirm password do not match");
     }
 
     try {
@@ -86,7 +88,7 @@ function Settings() {
         { withCredentials: true }
       );
 
-      alert(res.data.message); // Success message
+      toast.success(res.data.message); // Success message
 
       // Clear inputs
       setOldPassword("");
@@ -97,7 +99,7 @@ function Settings() {
       setShowConfirmPassword(false);
     } catch (err) {
       console.error(err);
-      alert(err.response?.data?.error || "Password change failed");
+      toast.error(err.response?.data?.error || "Password change failed");
     }
   };
 
@@ -253,7 +255,7 @@ function Settings() {
             </div>
 
             <button className="saveBtn" onClick={handleChangePassword}>
-              Save Password
+              Change Password
             </button>
           </div>
         );
