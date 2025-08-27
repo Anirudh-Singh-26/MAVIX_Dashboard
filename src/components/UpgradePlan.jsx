@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import Loader from "./Loader";
 
 function UpgradePlan() {
   const navigate = useNavigate();
@@ -97,7 +98,7 @@ function UpgradePlan() {
     }
   };
 
-  if (!user) return <div className="loadingText">Loading...</div>;
+  if (!user) return <Loader />;
 
   return (
     <div className="upgradePage">

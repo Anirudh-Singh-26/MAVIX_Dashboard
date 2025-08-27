@@ -2,6 +2,7 @@ import "./Settings.css";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Loader from "./Loader";
 
 function Settings() {
   const navigate = useNavigate();
@@ -22,9 +23,12 @@ function Settings() {
   useEffect(() => {
     const fetchSettings = async () => {
       try {
-        const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/settings`, {
-          withCredentials: true,
-        });
+        const res = await axios.get(
+          `${import.meta.env.VITE_BACKEND_URL}/api/settings`,
+          {
+            withCredentials: true,
+          }
+        );
         console.log("✅ API /api/settings response:", res.data);
         setSettingsData(res.data);
       } catch (err) {
@@ -144,7 +148,7 @@ function Settings() {
 
   // ---------------- RENDER SECTION ----------------
   const renderSection = () => {
-    if (!settingsData) return <p>Loading...</p>;
+    if (!settingsData) return <Loader />;
 
     switch (activeSection) {
       case "profile":
