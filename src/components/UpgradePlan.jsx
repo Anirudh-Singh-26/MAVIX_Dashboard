@@ -86,13 +86,13 @@ function UpgradePlan() {
       setPendingPlan(confirmPlan);
       setLoadingPlan("");
       setConfirmPlan(null);
-      toast.success(`✅ Upgrade request for ${confirmPlan} sent!`);
+      toast.success(`Upgrade request for ${confirmPlan} sent!`);
     } catch (err) {
       console.error(
         "Upgrade request failed:",
         err.response?.data || err.message
       );
-      toast.error("❌ Failed to send upgrade request.");
+      toast.error("Failed to send upgrade request.");
       setLoadingPlan("");
       setConfirmPlan(null);
     }
