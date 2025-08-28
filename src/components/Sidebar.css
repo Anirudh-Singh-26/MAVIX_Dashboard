@@ -1,3 +1,4 @@
+/* ---------- your existing styles (unchanged) ---------- */
 .sidebar {
   background-color: #171717;
   color: #b4b4b4;
@@ -53,9 +54,7 @@ button:hover {
   margin-right: 0;
 
   /* fill space between top button and bottom sign */
-  height: calc(
-    100vh - 100px
-  ); /* adjust 100px to top button + bottom sign height */
+  height: calc(100vh - 100px); /* adjust 100px to top button + bottom sign height */
 }
 
 /* Slim scrollbar */
@@ -154,14 +153,13 @@ button:hover {
   vertical-align: middle;
 }
 
-/* Collapsed sidebar */
+/* Collapsed sidebar (desktop behaviour) */
 .sidebar.collapsed {
   width: 5rem !important;
   overflow: hidden;
   background-color: #212121 !important;
 }
 
-/* Wrapper for top buttons */
 /* Wrapper for top buttons */
 .topButtonWrapper {
   display: flex;
@@ -173,7 +171,7 @@ button:hover {
   position: relative;
 }
 
-/* Collapse button */
+/* Collapse button (desktop default) */
 .topButtonWrapper .collapseBtn {
   width: 28px;
   height: 28px;
@@ -187,7 +185,7 @@ button:hover {
   z-index: 5;
 }
 
-/* When sidebar is collapsed, move collapse button over logo */
+/* When sidebar is collapsed, move collapse button over logo (desktop) */
 .sidebar.collapsed .topButtonWrapper .collapseBtn {
   position: absolute;
   left: 50%;
@@ -248,7 +246,7 @@ button:hover {
   max-width: 100%; /* stay within container */
 }
 
-/* Hide history scrollbar when sidebar is collapsed */
+/* Hide history scrollbar when sidebar is collapsed (desktop) */
 .sidebar.collapsed .history {
   overflow: hidden; /* prevent scrolling */
   scrollbar-width: none; /* Firefox */
@@ -295,4 +293,122 @@ button:hover {
 
 .searchBtn:hover {
   background-color: rgba(180, 180, 180, 0.05);
+}
+
+/* ============================== */
+/* RESPONSIVE ADDONS - SIDEBAR    */
+/* ============================== */
+
+/* Mobile/tablet: hide the sidebar (width:0) by default and show only the expand button.
+   When .open is present on the sidebar it will overlay and show full contents. */
+@media (max-width: 992px) {
+  /* base: hide sidebar */
+  .sidebar {
+    width: 0 !important;         /* fully hidden by default */
+    min-width: 0 !important;
+    overflow: hidden !important;
+    background-color: #212121 !important;
+    transition: width 0.18s ease;
+  }
+
+  /* make sure collapse/expand button is visible on-screen */
+  .sidebar .topButtonWrapper .collapseBtn {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 2100;
+    width: 32px;
+    height: 32px;
+    pointer-events: auto;
+  }
+
+  /* hide contents while collapsed */
+  .sidebar .topButtonWrapper img,
+  .sidebar .newChatWrapper,
+  .sidebar .searchWrapper,
+  .sidebar .history,
+  .sidebar .sign {
+    display: none !important;
+  }
+
+  /* open overlay */
+  .sidebar.open {
+    width: 18.5rem !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 2200;
+    overflow: auto;
+    transition: width 0.18s ease;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* when open, show contents */
+  .sidebar.open .topButtonWrapper img,
+  .sidebar.open .newChatWrapper,
+  .sidebar.open .searchWrapper,
+  .sidebar.open .history,
+  .sidebar.open .sign {
+    display: block !important;
+  }
+
+  /* place collapse button inside overlay when open */
+  .sidebar.open .topButtonWrapper .collapseBtn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    left: auto;
+  }
+
+  /* make history usable in overlay */
+  .sidebar.open .history {
+    height: calc(100vh - 120px); /* leaves room for top + sign */
+    overflow-y: auto;
+  }
+}
+
+/* small phones adjustments (visual polish) */
+@media (max-width: 576px) {
+  .sidebar.open {
+    width: 18.5rem !important;
+    height: 100vh;
+    z-index: 2300;
+  }
+
+  .sidebar .topButtonWrapper {
+    margin: 8px;
+    height: 36px;
+  }
+  .sidebar .topButtonWrapper .collapseBtn {
+    width: 26px;
+    height: 26px;
+  }
+  .sidebar .newChatWrapper,
+  .sidebar .searchWrapper {
+    margin-left: 6px;
+    margin-right: 6px;
+  }
+  .sidebar .newChatBtn,
+  .sidebar .searchBtn {
+    padding: 6px;
+  }
+  .sidebar .logo {
+    height: 22px;
+    width: 22px;
+    margin-top: 0.5rem;
+  }
+  .sidebar .sign {
+    font-size: 11px;
+    padding: 4px;
+  }
+}
+
+/* backdrop used when mobile overlay is open (inserted by JSX) */
+.sidebar-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 2150; /* below sidebar.open which is 2200/2300 */
 }

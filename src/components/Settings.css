@@ -277,3 +277,136 @@
   font-size: 1rem;
   padding: 0.6rem 0.8rem;
 }
+
+
+/* ======================================== */
+/* RESPONSIVE STYLES - SETTINGS COMPONENT   */
+/* ======================================== */
+
+/* Tablets and below */
+@media (max-width: 992px) {
+  .settingsContainer {
+    flex-direction: column; /* sidebar stacks on top */
+  }
+
+  .settingsSidebar {
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    justify-content: center;
+    gap: 0.8rem;
+    padding: 1rem;
+  }
+
+  .sidebarItem {
+    flex: 1 1 auto;
+    text-align: center;
+  }
+
+  .settingsMain {
+    padding: 1.2rem;
+  }
+
+  .profileSection {
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  .profileLeft,
+  .profileRight {
+    flex: unset;
+    width: 100%;
+  }
+
+  .profileCircle {
+    width: 150px;
+    height: 150px;
+    font-size: 36px;
+  }
+
+  .profileName {
+    font-size: 1.25rem;
+  }
+}
+
+/* Mobile phones */
+@media (max-width: 576px) {
+  .settingsHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.8rem;
+    padding: 1rem;
+  }
+
+  .headerText h1 {
+    font-size: 1.5rem;
+  }
+
+  .headerText p {
+    font-size: 0.85rem;
+  }
+
+  .closeBtn {
+    align-self: flex-end;
+    font-size: 1.5rem;
+  }
+
+  .settingsSidebar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+    padding: 0.8rem;
+  }
+
+  .sidebarItem {
+    font-size: 0.9rem;
+    padding: 0.6rem;
+  }
+
+  .settingsMain {
+    padding: 1rem;
+  }
+
+  .fieldInput {
+    min-width: 0; /* remove rigid width */
+    width: 100%;
+  }
+
+  .displayRow {
+    flex-direction: column;
+    align-items: flex-start;
+    height: auto;
+    gap: 0.4rem;
+  }
+
+  .displayValue {
+    max-width: 100%;
+    white-space: normal; /* allow wrapping */
+  }
+
+  .editRowInline {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .editBtn,
+  .saveBtn,
+  .cancelBtn,
+  .toggleViewBtn {
+    width: 100%; /* full width buttons for small screens */
+    text-align: center;
+  }
+
+  .profileCircle {
+    width: 120px;
+    height: 120px;
+    font-size: 28px;
+  }
+
+  .profileName {
+    font-size: 1.1rem;
+  }
+}

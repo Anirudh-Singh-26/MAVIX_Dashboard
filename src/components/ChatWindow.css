@@ -402,3 +402,109 @@ background: linear-gradient(to right, #321234, #422343, #503452);
 .Toastify__progress-bar {
   background: linear-gradient(to right, #22c55e, #3b82f6) !important;
 }
+
+
+/* --- RESPONSIVE FIXES --- */
+
+/* Tablet and below */
+@media (max-width: 992px) {
+  .chatWindow {
+    height: 100vh;
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .navbar {
+    position: fixed;   /* ✅ keep it always visible */
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3.5rem;
+    background-color: #1a1a1a; /* solid background */
+    padding: 0 1rem;
+    z-index: 100;
+  }
+
+  .chatBody {
+    padding-top: 3.5rem; /* ✅ leave space for navbar */
+    padding-bottom: 5rem; /* ✅ leave space for input */
+  }
+
+  .chatInput {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #212121;
+    padding: 0.75rem 1rem;
+    z-index: 200;
+
+  }
+
+  .inputBox {
+    max-width: 90%;
+    margin-right: 2rem;
+  }
+
+  .info {
+    font-size: 0.7rem;
+    text-align: center;
+  }
+
+  .gptDropDown {
+    top: 3.5rem; /* adjust below navbar */
+    left: 1rem;
+    width: 90vw;  /* ✅ fit screen */
+    max-width: 300px;
+  }
+
+  .dropDown {
+    top: 3.5rem;
+    right: 1rem;
+    width: 60vw;
+    max-width: 200px;
+  }
+}
+
+/* Mobile (small phones) */
+@media (max-width: 576px) {
+  .navbar {
+    height: 3rem;
+    padding: 0 0.5rem;
+  }
+
+  .gptDropdownSpan {
+    margin: 0;
+    font-size: 0.8rem;
+  }
+
+  .adminBtn {
+    font-size: 0.75rem;
+    padding: 4px 8px;
+  }
+
+  .userIconDiv {
+    /* height: 2rem;
+    width: 2rem; */
+    margin: 0;
+    /* margin-right: 3rem; */
+  }
+
+  .input {
+    padding: 12px 14px;
+    font-size: 0.75rem;
+    border-radius: 2rem;
+  }
+
+  #submit {
+    right: 10px;
+    font-size: 16px;
+    height: 28px;
+    width: 28px;
+  }
+
+  .info {
+    font-size: 0.65rem;
+    margin-top: 0.25rem;
+  }
+}

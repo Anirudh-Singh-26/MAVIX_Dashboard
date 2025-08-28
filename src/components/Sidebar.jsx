@@ -1,5 +1,5 @@
 import "./Sidebar.css";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 import { MyContext } from "./MyContext";
 import axios from "axios";
 import { v1 as uuidv1 } from "uuid";
@@ -17,14 +17,22 @@ function Sidebar() {
     setPrevChats,
   } = useContext(MyContext);
 
-  const [collapsed, setCollapsed] = useState(false); // collapse state
+  const [collapsed, setCollapsed] = useState(false); // desktop collapsed state (5rem)
   const [showSearch, setShowSearch] = useState(false);
+
+  // mobile behavior
+  const [isMobile, setIsMobile] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const sidebarRef = useRef(null);
 
   const getAllThreads = async () => {
     try {
-      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/thread`, {
-        withCredentials: true,
-      });
+      const response = await axios.get(
+        `${import.meta.env.VITE_BACKEND_URL}/api/thread`,
+        {
+          withCredentials: true,
+        }
+      );
       const filterData = response.data.map((thread) => ({
         threadId: thread.threadId,
         title: thread.title,
@@ -50,12 +58,37 @@ function Sidebar() {
       window.removeEventListener("threads-updated", handleThreadsUpdated);
   }, []); // mount once
 
+  // handle resize -> detect mobile/tablet breakpoint
+  useEffect(() => {
+    const handleResize = () => {
+      const mobile = window.innerWidth <= 992;
+      setIsMobile(mobile);
+      if (!mobile) {
+        // ensure mobile overlay is closed on desktop
+        setMobileOpen(false);
+      }
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // close overlay on Escape key (mobile)
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === "Escape" && mobileOpen) setMobileOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [mobileOpen]);
+
   const createNewChat = () => {
     setNewChat(true);
     setPrompt("");
     setReply(null);
     setCurrThread(uuidv1());
     setPrevChats([]);
+    if (isMobile) setMobileOpen(false);
   };
 
   const changeThread = async (newThreadId) => {
@@ -68,6 +101,9 @@ function Sidebar() {
       setPrevChats(response.data);
       setNewChat(false);
       setReply(null);
+
+      // close mobile overlay after selecting a thread
+      if (isMobile) setMobileOpen(false);
     } catch (e) {
       console.log(e);
     }
@@ -90,114 +126,146 @@ function Sidebar() {
     }
   };
 
+  // If mobile -> toggle overlay open/close; else toggle desktop collapsed state
   const toggleSidebar = () => {
-    setCollapsed(!collapsed);
+    if (isMobile) {
+      setMobileOpen((s) => !s);
+    } else {
+      setCollapsed((s) => !s);
+    }
+  };
+
+  // pick correct icon depending on context
+  const CollapseIcon = () => {
+    if (isMobile) {
+      return mobileOpen ? (
+        <i className="fa-solid fa-angle-left"></i>
+      ) : (
+        <i className="fa-solid fa-angle-right"></i>
+      );
+    }
+    return collapsed ? (
+      <i className="fa-solid fa-angle-right"></i>
+    ) : (
+      <i className="fa-solid fa-angle-left"></i>
+    );
   };
 
   return (
-    <section className={`sidebar ${collapsed ? "collapsed" : ""}`}>
-      {/* new chat button + collapse button combined */}
-      <div className="topButtonsContainer">
-        {/* First row: Logo + Collapse button */}
-        <div className="topButtonWrapper">
-          <img
-            className={collapsed ? "newlogo hidden" : "newlogo"}
-            src="flaticon.png"
-            alt="Main Logo"
-          />
+    <>
+      {/* backdrop for mobile overlay */}
+      {isMobile && mobileOpen && (
+        <div
+          className="sidebar-backdrop"
+          onClick={() => setMobileOpen(false)}
+        />
+      )}
 
-          <div className="collapseBtn" onClick={toggleSidebar}>
-            {collapsed ? (
-              <i className="fa-solid fa-angle-right"></i>
-            ) : (
-              <i className="fa-solid fa-angle-left"></i>
-            )}
+      <section
+        ref={sidebarRef}
+        className={`sidebar ${collapsed ? "collapsed" : ""} ${
+          mobileOpen ? "open" : ""
+        }`}
+        aria-hidden={isMobile && !mobileOpen ? "true" : "false"}
+      >
+        {/* new chat button + collapse button combined */}
+        <div className="topButtonsContainer">
+          {/* First row: Logo + Collapse button */}
+          <div className="topButtonWrapper">
+            <img
+              className={collapsed ? "newlogo hidden" : "newlogo"}
+              src="flaticon.png"
+              alt="Main Logo"
+            />
+
+            <div
+              className="collapseBtn"
+              onClick={toggleSidebar}
+              aria-label="Toggle sidebar"
+            >
+              <CollapseIcon />
+            </div>
+          </div>
+
+          {/* Second row: New Chat button */}
+          <div className="newChatWrapper">
+            <button onClick={createNewChat} className="newChatBtn">
+              <i className="fa-regular fa-comment logo"></i>
+              {!collapsed && (
+                <span>
+                  <p>New Chat</p>
+                </span>
+              )}
+            </button>
           </div>
         </div>
 
-        {/* Second row: New Chat button */}
-        <div className="newChatWrapper">
-          <button onClick={createNewChat} className="newChatBtn">
-            <i class="fa-regular fa-comment logo"></i>
+        {/* Search button (same style as New Chat) */}
+        <div className="searchWrapper">
+          <button
+            onClick={() => setShowSearch(true)} // open popup
+            className="searchBtn"
+          >
+            <i className="fa-solid fa-magnifying-glass logo"></i>
             {!collapsed && (
               <span>
-                <p>New Chat</p>
+                <p>Search</p>
               </span>
             )}
           </button>
         </div>
-      </div>
 
-      {/* Search button (same style as New Chat) */}
-      <div className="searchWrapper">
-        <button
-          onClick={() => setShowSearch(true)} // open popup
-          className="searchBtn"
-        >
-          <i className="fa-solid fa-magnifying-glass logo"></i>
-          {!collapsed && (
-            <span>
-              <p>Search</p>
-            </span>
-          )}
-        </button>
-      </div>
+        {/* history */}
+        <ul className="history">
+          {allThreads?.map((thread, idx) => (
+            <li
+              key={idx}
+              onClick={() => changeThread(thread.threadId)}
+              className={
+                !collapsed && thread.threadId === currThread
+                  ? "highlighted"
+                  : ""
+              }
+            >
+              <span className="threadTitle">
+                {!collapsed &&
+                  (thread.title.length > 25
+                    ? thread.title.slice(0, 25) + "..."
+                    : thread.title)}
+              </span>
+              {!collapsed && (
+                <i
+                  className="fa-solid fa-trash"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    deleteThread(thread.threadId);
+                  }}
+                ></i>
+              )}
+            </li>
+          ))}
+        </ul>
 
-      {/* history */}
-      <ul className="history">
-        {allThreads?.map((thread, idx) => (
-          <li
-            key={idx}
-            onClick={() => changeThread(thread.threadId)}
-            className={
-              !collapsed && thread.threadId === currThread ? "highlighted" : ""
-            }
-          >
-            <span className="threadTitle">
-              {!collapsed &&
-                (thread.title.length > 25
-                  ? thread.title.slice(0, 25) + "..."
-                  : thread.title)}
-            </span>
-            {!collapsed && (
-              <i
-                className="fa-solid fa-trash"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  deleteThread(thread.threadId);
-                }}
-              ></i>
-            )}
-          </li>
-        ))}
-      </ul>
+        {/* popup here */}
+        {showSearch && (
+          <SearchPopup
+            onClose={() => setShowSearch(false)}
+            allThreads={allThreads}
+            onSelectThread={changeThread} // reuse your existing changeThread
+          />
+        )}
 
-      {/* popup here */}
-      {showSearch && (
-        <SearchPopup
-          onClose={() => setShowSearch(false)}
-          allThreads={allThreads}
-          onSelectThread={changeThread} // reuse your existing changeThread
-        />
-      )}
-
-      {/* Sign
-      {!collapsed && (
-        <div className="sign">
-          <p>By Anirudh Singh Rathore &hearts;</p>
-        </div>
-      )} */}
-
-      {!collapsed ? (
-        <div className="sign">
-          <p>By Anirudh Singh Rathore &hearts;</p>
-        </div>
-      ) : (
-        <div className="sign">
-          <p>Ani</p>
-        </div>
-      )}
-    </section>
+        {!collapsed ? (
+          <div className="sign">
+            <p>By Anirudh Singh Rathore &hearts;</p>
+          </div>
+        ) : (
+          <div className="sign">
+            <p>Ani</p>
+          </div>
+        )}
+      </section>
+    </>
   );
 }
 
