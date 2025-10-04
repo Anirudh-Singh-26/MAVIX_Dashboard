@@ -17,7 +17,7 @@ Built with **React**, **Vite**, **Tailwind CSS**, and **Redux Toolkit**, it offe
 ## 🔗 Related Repositories
 
 * **MAVIX Frontend** - [https://github.com/Anirudh-Singh-26/MAVIX_Frontend](https://github.com/Anirudh-Singh-26/MAVIX_Frontend)
-* **MAVIX Backend** - [https://github.com/Anirudh-Singh-26/Mavix-backend](https://github.com/Anirudh-Singh-26/Mavix-backend)
+* **MAVIX Backend** - [https://github.com/Anirudh-Singh-26/MAVIX_BACKEND](https://github.com/Anirudh-Singh-26/MAVIX_BACKEND)
 
 ---
 
