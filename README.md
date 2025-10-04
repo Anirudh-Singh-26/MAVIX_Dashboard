@@ -1,14 +1,108 @@
-# React + Vite
+#   MAVIX Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The **MAVIX Dashboard** is the main user interface after login, providing full access to AI assistant features, analytics, and interactive tools.
 
-Currently, two official plugins are available:
+Built with **React**, **Vite**, **Tailwind CSS**, and **Redux Toolkit**, it offers real-time updates and a seamless experience.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🔗 Live Demo
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-# ChatBot
-# chatBot_frontend
+[https://mavix-dashboard.vercel.app](https://mavix-dashboard.vercel.app)
+
+> ⚠️ **Note:** Protected application. Direct access without login redirects to the landing page.
+
+---
+
+## 🔗 Related Repositories
+
+* **MAVIX Frontend** - [https://github.com/Anirudh-Singh-26/MAVIX_Frontend](https://github.com/Anirudh-Singh-26/MAVIX_Frontend)
+* **MAVIX Backend** - [https://github.com/Anirudh-Singh-26/Mavix-backend](https://github.com/Anirudh-Singh-26/Mavix-backend)
+
+---
+
+## 📦 Tech Stack
+
+* React 18 + Vite
+* Tailwind CSS
+* Redux Toolkit
+* Axios for API communication
+* Framer Motion for smooth animations
+* React Router DOM
+
+---
+
+## 🌟 Features
+
+* Protected routes with authentication
+* AI assistant interactive dashboard
+* Real-time data visualization
+* Smooth navigation and animations
+* Modular component-based structure
+
+---
+
+## ⚙️ Setup Instructions
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/Anirudh-Singh-26/Mavix-dashboard.git
+cd Mavix-dashboard
+```
+
+### 2. Install dependencies
+
+```bash
+npm install
+```
+
+### 3. Setup environment variables
+
+Create a `.env` file:
+
+```env
+VITE_API_BASE_URL=https://mavix-backend.vercel.app
+```
+
+### 4. Run development server
+
+```bash
+npm run dev
+```
+
+---
+
+## 📁 Folder Structure
+
+```
+Mavix-dashboard/
+├── public/
+├── src/
+│   ├── assets/
+│   ├── components/
+│   ├── pages/
+│   ├── store/
+│   ├── lib/
+│   ├── App.jsx
+│   ├── main.jsx
+│   └── index.css
+├── package.json
+├── tailwind.config.js
+├── vite.config.js
+└── README.md
+```
+
+---
+
+## 👤 Author
+
+Anirudh Singh Rathore
+[GitHub Profile](https://github.com/Anirudh-Singh-26)
+
+---
+
+## 📄 License
+
+MIT © Anirudh Singh Rathore
+
